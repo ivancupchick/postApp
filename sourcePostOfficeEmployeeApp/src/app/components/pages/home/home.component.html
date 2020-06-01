@@ -1,0 +1,9 @@
+<div class="wrapper">
+  <select [(ngModel)]="selectedItem" (change)="changeStatus($event)">
+    <option *ngFor="let item of list" [value]="item.value">{{ item.name }}</option>
+  </select>
+
+  <a routerLink="../qr-code">
+    <span>Сканировать QR-код</span>
+  </a>
+</div>
