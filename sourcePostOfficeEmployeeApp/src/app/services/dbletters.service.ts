@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { isArray } from 'util';
 
 export enum LetterStatus {
   withoutStatus = 'withoutStatus',
@@ -241,7 +242,7 @@ export interface LetterHistory {
 export class DBLettersService {
   constructor(private httpClient: HttpClient) { }
 
-  updateStatusLetter(id: number, status: LetterStatus) {
+  updateStatusLetter(id: number | number[], status: LetterStatus) {
     const letterHistory: LetterHistory = {
       wasStatus: '',
       updatedStatus: status,
@@ -268,10 +269,17 @@ export class DBLettersService {
         break;
     }
 
-    return this.httpClient.put<Letter>(
-      `${environment.url}/api/updateStatusLetter.php`,
-      { id, status, letterHistory: JSON.stringify(letterHistory) }
-    );
+    if (typeof id === 'number') {
+      return this.httpClient.put<Letter>(
+        `${environment.url}/api/updateStatusLetter.php`,
+        { id, status, letterHistory: JSON.stringify(letterHistory) }
+      );
+    } else if (isArray(id)) {
+      return this.httpClient.put<Letter>(
+        `${environment.url}/api/updateStatusLetters.php`,
+        { id, status, letterHistory: JSON.stringify(letterHistory) }
+      );
+    }
   }
 
 }

@@ -18,9 +18,23 @@ import { DBLettersService } from './services/dbletters.service';
 import { HttpClientModule } from '@angular/common/http';
 import { StorageService } from './services/storage.service';
 
+import { NgxIndexedDBModule, DBConfig, NgxIndexedDBService } from 'ngx-indexed-db';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   suppressScrollY: false
+};
+
+const dbConfig: DBConfig  = {
+  name: 'db',
+  version: 1,
+  objectStoresMeta: [{
+    store: 'ids',
+    storeConfig: { keyPath: 'id', autoIncrement: true },
+    storeSchema: [
+      { name: 'ider', keypath: 'ider', options: { unique: true } },
+    ]
+  }]
 };
 
 @NgModule({
@@ -38,11 +52,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule,
     HttpClientModule,
 
+    NgxIndexedDBModule.forRoot(dbConfig),
+
     PerfectScrollbarModule,
   ],
   providers: [
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     DBLettersService,
+    NgxIndexedDBService,
     StorageService
   ],
   bootstrap: [AppComponent]

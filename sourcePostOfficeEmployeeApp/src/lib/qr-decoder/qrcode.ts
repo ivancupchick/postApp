@@ -2,7 +2,7 @@ import {Detector} from "./detector"
 import {Decoder} from "./decoder"
 /*
    Copyright 2011 Lazar Laszlo (lazarsoft@gmail.com, www.lazarsoft.info)
-   
+
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
@@ -75,7 +75,7 @@ export class QRCode  {
 
         var end = new Date().getTime();
         var time = end - start;
-        console.log(time);
+        // console.log(time);
 
         return str;
     }

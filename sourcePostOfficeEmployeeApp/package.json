@@ -28,6 +28,7 @@
     "core-js": "^2.5.4",
     "firebase": "^7.8.0",
     "jspdf": "^1.5.3",
+    "ngx-indexed-db": "^5.0.4",
     "ngx-perfect-scrollbar": "^8.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.9.0",

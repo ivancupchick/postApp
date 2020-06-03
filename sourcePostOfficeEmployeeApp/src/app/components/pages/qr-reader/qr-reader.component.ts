@@ -12,8 +12,10 @@ import { StorageService } from 'src/app/services/storage.service';
 export class QrReaderComponent implements OnInit, AfterViewInit {
   // selectValue;
 
+  scannedIds: number[] = [];
+
   devices = [
-    { value: 'none', label: 'Выберите каамеру' }
+    { value: 'none', label: 'Выберите камеру' }
   ];
 
   isCameraHiiden = true;
@@ -26,6 +28,9 @@ export class QrReaderComponent implements OnInit, AfterViewInit {
 
   and another command window:
   ssh -R 80:0.0.0.0:4200 ssh.localhost.run
+
+  and for backend on MAMP ssh -R 80:0.0.0.0:8888 ssh.localhost.run
+  and Replace url in environment (mb --prod if deploy)
   */
 
 
@@ -69,7 +74,17 @@ export class QrReaderComponent implements OnInit, AfterViewInit {
     private storageService: StorageService
   ) { }
 
+  clearAll() {
+    this.storageService.clear();
+  }
+
   ngOnInit() {
+    // this.storageService.clear();
+    this.storageService.getAll().subscribe(r => {
+      this.scannedIds = r.map(rr => rr.ider);
+      console.log( this.scannedIds);
+
+    });
     // const r = this.videoWrapper.nativeElement;
 
     (this.videoWrapper.nativeElement as HTMLVideoElement).addEventListener('playing', (e) => {
@@ -132,6 +147,19 @@ export class QrReaderComponent implements OnInit, AfterViewInit {
   //       });
   // }
 
+  sendAll() {
+    this.apiService.updateStatusLetter(this.scannedIds, this.storageService.status.getValue())
+      .subscribe(res => {
+        alert('Статус успешно сменен');
+      }, error => {
+        for (const key in error) {
+          if (error.hasOwnProperty(key)) {
+            alert(key + ' - ' + error[key]);
+          }
+        }
+      });
+  }
+
   public QrDecodeCallback(decoded: string) {
     // if (this.stopAfterScan) {
     //   this.stopScanning();
@@ -141,21 +169,21 @@ export class QrReaderComponent implements OnInit, AfterViewInit {
     decoded = decoded.substr(0, decoded.length - 4);
     // decoded = decoded.
     const id = +decoded;
-    if (typeof id === 'number') {
-      this.stopScanning();
+
+    if (!this.scannedIds.find(ider => ider === id) && typeof id === 'number' && !Number.isNaN(id)) {
+      // this.stopScanning();
       // this.capturedQr.next(decoded);
-      alert(`Код успешно просканирован - ${id}`);
-      this.apiService.updateStatusLetter(id, this.storageService.status.getValue())
-        .subscribe(res => {
-          alert('Статус успешно сменен');
-        }, error => {
-          for (const key in error) {
-            if (error.hasOwnProperty(key)) {
-              alert(key + ' - ' + error[key]);
-            }
-          }
-        });
+      this.storageService.setId(id).subscribe(r => {
+        // console.log(r);
+      });
+      // alert(`Код успешно просканирован - ${id}`);
+      this.scannedIds.push(id);
+      this.captureTimeout = setTimeout(() => this.captureToCanvas(), this.updateTime);
+
     } else {
+      if (this.scannedIds.find(ider => ider === id)) {
+        alert('Этот QR-код уже был просканнирован');
+      }
       // this.capturedQr.next(decoded);
       // this.appendMessageToResult(decoded); // stop scanning and link to letter information
       this.captureTimeout = setTimeout(() => this.captureToCanvas(), this.updateTime);

@@ -1,5 +1,12 @@
 
 <div class="wrapper">
+  <div>Просканнировано: {{ scannedIds ? scannedIds.length : 0 }}</div>
+  <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+    <button (click)="clearAll()">Очистить накопленные QR-коды</button>
+  </div>
+  <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+    <button (click)="sendAll()">Отправить накопленные QR-коды</button>
+  </div>
   <perfect-scrollbar>
     <div class="videoWrapper">
       <label for="choiseCamera">Выберите камеру</label>

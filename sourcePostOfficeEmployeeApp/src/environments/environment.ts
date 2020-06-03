@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 const PHP_API_SERVER = 'http://127.0.0.1:80';
-const PHP_API_SERVER_MAMP = 'http://localhost:8888';
+const PHP_API_SERVER_MAMP = 'http://localhost:8888/main';
 
 export const environment = {
   production: false,
