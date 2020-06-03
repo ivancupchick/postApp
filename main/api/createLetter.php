@@ -77,7 +77,7 @@ if (isset($postdata) && !empty($postdata)) {
 
     /*
 
-    create table letters( id int not null auto_increment,
+  create table letters( id int not null auto_increment,
     hash varchar(200),
     status varchar(200),
     isMejdunarond varchar(200),
@@ -114,7 +114,9 @@ if (isset($postdata) && !empty($postdata)) {
     lwav varchar(200),
     lwp varchar(200),
     dateAndTimeOfStartWay float,
-    primary key(id))
+    history: varchar(200),
+    primary key(id)
+  );
     */
 
     if (mysqli_query($con, $sql)) {
