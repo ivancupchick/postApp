@@ -10,7 +10,6 @@ import { CreateNewLetterComponent } from './components/create-new-letter/create-
 import { LetterFormComponent } from './components/letter-form/letter-form.component';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { ShowAllLettersComponent } from './components/show-all-letters/show-all-letters.component';
 import { TrackerComponent } from './components/tracker/tracker.component';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { TrackerComponent } from './components/tracker/tracker.component';
     DashboardComponent,
     CreateNewLetterComponent,
     LetterFormComponent,
-    ShowAllLettersComponent,
     TrackerComponent
   ],
   imports: [

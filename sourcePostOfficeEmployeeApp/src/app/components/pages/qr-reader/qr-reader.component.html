@@ -13,17 +13,6 @@
       <select #selecting (change)="getStream(true)" name="choiseCamera" id="choiseCamera">
         <option *ngFor="let device of devices" [value]="device.value"> {{ device.label }}</option>
       </select>
-      <!-- <select #selecting (change)="getStream()"></select> -->
-
-      <!-- <div>
-        <qr-scanner
-          [debug]="false"
-          [canvasWidth]="200"
-          [canvasHeight]="200"
-          [stopAfterScan]="false"
-          [updateTime]="100"
-        ></qr-scanner>
-      </div> -->
 
       <video #videoWrapper [style.visibility]="isCameraHiiden ? 'hidden' : 'visible'" autoplay="true" muted="true" playsinline></video>
       <canvas #qrCanvas [hidden]="true" [width]="canvasWidth" [height]="canvasHeight"></canvas>
@@ -32,17 +21,3 @@
     <div #result class="resultQRCodes"></div>
   </perfect-scrollbar>
 </div>
-
-<!-- <div fxLayout="column" fxFlexAlign="center">
-  <div  fxFlex="20" fxFill>
-  <textarea fxFill placeholder="qrr-value (URL or DATA URL)" [(ngModel)]="value"></textarea>
-  <br/>
-
-  </div>
-  <div  fxFlex="60" fxFill>
-  <ng2-qrcode-reader (result)="render($event)" [qrr-show]="showQRCode" [qrr-value]="value" [qrr-type]="elementType"></ng2-qrcode-reader>
-  </div>
-  <p>Result</p>
-  <div #result  fxFlex="20" fxFill>
-  </div>
-  </div> -->
