@@ -116,12 +116,7 @@ if ($result = mysqli_query($con, $sql)) {
 
 $i = 0;
     while ($row = mysqli_fetch_assoc($result)) {
-//        $letter['hash'] = $row['hash'];
-//        $letter['status'] = $row['status'];
-
-//        $letter['isMejdunarond'] = $row['isMejdunarond'];
-
-
+        writeOnPdf($pdf, $row['hash'], 76, 67);
         $arrayForInsertingDataRightBotton = array(
             $row['r_ko_s'],
             $row['r_ko_n'] . " " . $row['r_ko_o'],
