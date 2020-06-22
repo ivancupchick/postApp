@@ -108,9 +108,15 @@ export class QrReaderComponent implements OnInit, AfterViewInit {
   }
 
   sendAll() {
-    this.apiService.updateStatusLetter(this.scannedIds, this.storageService.status.getValue())
+    if (this.scannedIds.length === 0) {
+      alert('Вы не просканировали QR-код');
+      return;
+    }
+
+    this.apiService.updateStatusLetter(this.scannedIds || [], this.storageService.status.getValue())
       .subscribe(res => {
         alert('Статус успешно сменен');
+        this.clearAll();
       }, error => {
         for (const key in error) {
           if (error.hasOwnProperty(key)) {

@@ -16,20 +16,29 @@ if(isset($postdata) && !empty($postdata))
   //   return http_response_code(400);
   // }
 
+  // http_response_code($request->id);
+
   // Sanitize.
-  // $id    = mysqli_real_escape_string($con, (int)$request->id);
+  // $id    =  || [];
   $status = mysqli_real_escape_string($con, trim($request->status));
   $letterHistory = $request->letterHistory;
   // echo $letterHistory;
 
-  $ids = implode(",", $id);
+  $ids = implode(",", $request->id);
 
-  // Update.
   $sql = "UPDATE `letters` SET `status`='$status', `history`=CONCAT(`history`, '|$letterHistory') WHERE `id` in '($ids)'";
 
-  if(mysqli_query($con, $sql)) {
-    http_response_code(204);
-  } else {
-    return http_response_code(422);
-  }
+  // Update.
+
+  $arr = array('message' => $ids); //etc
+
+  header('HTTP/1.1 201 Created');
+  echo json_encode($arr);
+
+
+  // if(mysqli_query($con, $sql)) {
+  //   http_response_code(204);
+  // } else {
+  //   return http_response_code(422);
+  // }
 }

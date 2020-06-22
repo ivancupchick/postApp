@@ -277,7 +277,7 @@ export class DBLettersService {
     } else if (isArray(id)) {
       return this.httpClient.put<Letter>(
         `${environment.url}/api/updateStatusLetters.php`,
-        { id, status, letterHistory: JSON.stringify(letterHistory) }
+        { id: JSON.stringify(id), status, letterHistory: JSON.stringify(letterHistory) }
       );
     }
   }
