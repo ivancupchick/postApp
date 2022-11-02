@@ -27,7 +27,7 @@
     "angular-cli-ghpages": "^0.6.2",
     "core-js": "^2.5.4",
     "firebase": "^7.8.0",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.5.1",
     "ngx-indexed-db": "^5.0.4",
     "ngx-perfect-scrollbar": "^8.0.0",
     "rxjs": "~6.5.4",
